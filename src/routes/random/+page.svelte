@@ -1,12 +1,12 @@
 <script lang="ts">
 	import { TypeWriter } from 'svelte-typewrite';
-	import { wordlist } from '../../store/wordlist';
+	import store from '../../store/store.svelte';
 
 	let noVisible = $state(false);
 	let no = $state(0);
 </script>
 
-<div class="flex h-full flex-col items-center justify-center">
+<div class="flex flex-grow flex-col items-center justify-center">
 	<h3
 		class="text-6xl text-gray-500 transition-opacity duration-150"
 		class:opacity-0={!noVisible}
@@ -16,7 +16,7 @@
 	</h3>
 	<div class="text-9xl">
 		<TypeWriter
-			texts={wordlist}
+			texts={store.selectedWordlist}
 			blinksBetweenTexts={0}
 			typeSpeed={30}
 			deleteSpeed={20}
@@ -29,10 +29,10 @@
       }}
 		/>
 	</div>
-  <div class="form-control pt-8">
-    <label class="cursor-pointer label">
-      <input type="checkbox" checked={false} class="checkbox checkbox-sm " /> 
-      <span class="label-text ml-2 text-gray-400 uppercase">Randomize</span>
-    </label>
-  </div>
+	<div class="form-control pt-8">
+		<label class="label cursor-pointer">
+			<input type="checkbox" checked={false} class="checkbox checkbox-sm" />
+			<span class="label-text ml-2 uppercase text-gray-400">Randomize</span>
+		</label>
+	</div>
 </div>
