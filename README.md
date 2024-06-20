@@ -1,6 +1,5 @@
 # [bip39](https://github.com/bitcoin/bips/blob/master/bip-0039/bip-0039-wordlists.md) word list in another way
 
-
 ## Developing
 
 Once you've installed dependencies with `bun i`, start a development server:

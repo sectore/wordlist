@@ -4,15 +4,11 @@ import daisyui from 'daisyui';
 
 const config = {
 	darkMode: 'class',
-	content: [
-		'./src/**/*.{html,js,svelte,ts}',
-	],
+	content: ['./src/**/*.{html,js,svelte,ts}'],
 	theme: {
 		extend: {}
 	},
-	plugins: [
-		daisyui
-	]
+	plugins: [daisyui]
 } satisfies Config;
 
 export default config;
