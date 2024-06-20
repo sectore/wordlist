@@ -1,7 +1,10 @@
 import { wordlists } from 'bip39';
 import { pipe, Effect as E } from 'effect';
+import * as O from 'effect/Option';
 import { shuffle } from 'effect/Random';
 import { fromIterable } from 'effect/Array';
+import * as A from 'effect/Array';
+import { validIndex } from '$lib/utils';
 
 export enum PATHS {
 	HOME = '/',
@@ -42,11 +45,32 @@ const WORDLISTS: Record<LANG, string[]> = {
 class Store {
 	selectedLang = $state<LANG>('en');
 	randomize = $state(false);
-	selectedWordlist = $derived(WORDLISTS[this.selectedLang]);
-	selectedWordlistRandomizeable = $derived.by(() =>
-		this.randomize
-			? pipe(this.selectedWordlist, shuffle, E.map(fromIterable), E.runSync)
-			: this.selectedWordlist
+	wordlist = $derived(WORDLISTS[this.selectedLang]);
+	wordlistRandomizable = $derived.by(() =>
+		this.randomize ? pipe(this.wordlist, shuffle, E.map(fromIterable), E.runSync) : this.wordlist
+	);
+	filter = $state<O.Option<string>>(O.none());
+	wordlistFiltered = $derived.by(() =>
+		pipe(
+			this.filter,
+			O.match({
+				// 1. no filter
+				onNone: () => this.wordlist,
+				onSome: (filter) => {
+					// 2. filter by index
+					const filteredByIndex = pipe(
+						validIndex(filter),
+						O.flatMap((f) => A.get(f)(this.wordlist)),
+						O.map(A.make)
+					);
+					// 3. or filter by given string
+					return pipe(
+						filteredByIndex,
+						O.getOrElse(() => A.filter(this.wordlist, (w) => w.startsWith(filter)))
+					);
+				}
+			})
+		)
 	);
 }
 

@@ -1,16 +1,15 @@
 <script lang="ts">
 	import { TypeWriter } from 'svelte-typewrite';
-	import store from '../store/store.svelte';
+	import store from '$lib/store.svelte';
 	import { pipe } from 'effect';
 	import { findFirstIndex } from 'effect/Array';
 	import { getOrElse } from 'effect/Option';
-
 	let noVisible = $state(false);
 	let wordIndex = $state(0);
 	let no = $derived.by(() => {
-		const w = store.selectedWordlistRandomizeable[wordIndex];
+		const w = store.wordlistRandomizable[wordIndex];
 		return pipe(
-			findFirstIndex(store.selectedWordlist, (wv) => wv === w),
+			findFirstIndex(store.wordlist, (wv) => wv === w),
 			getOrElse(() => -2),
 			(n) => n + 1
 		);
@@ -28,12 +27,12 @@
 				#{no}
 			</h3>
 			<span class="text-sm uppercase text-gray-400"
-				>of <span class="font-bold">{store.selectedWordlistRandomizeable.length}</span> words</span
+				>of <span class="font-bold">{store.wordlistRandomizable.length}</span> words</span
 			>
 		</div>
 		<div class="py-4 text-9xl">
 			<TypeWriter
-				texts={store.selectedWordlistRandomizeable}
+				texts={store.wordlistRandomizable}
 				blinksBetweenTexts={0}
 				typeSpeed={30}
 				deleteSpeed={30}

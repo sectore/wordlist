@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import { BookType, LayoutGrid, Rows4, Sun } from 'lucide-svelte';
-	import store, { PATHS as P, lang, type LANG } from './store/store.svelte';
+	import store, { PATHS as P, lang, type LANG } from '$lib/store.svelte';
 
 	const isPath = (path: string) => $page.url.pathname === path;
 </script>
@@ -34,8 +34,8 @@
 		</a>
 	</div>
 	<div class="flex flex-1 items-center justify-center gap-1">
-		<p class="text-xl uppercase text-gray-400">
-			<strong class="text-strong">bi39</strong> word list in {lang.length} languages:
+		<p class="text-lg uppercase text-gray-400">
+			<span class="font-bold">bip39 word list</span> in {lang.length} languages:
 		</p>
 		<select
 			class="select select-ghost btn-sm select-sm ml-2 bg-gray-200 text-gray-500"
