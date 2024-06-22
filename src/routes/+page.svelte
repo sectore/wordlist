@@ -30,7 +30,7 @@
 				>of <span class="font-bold">{store.wordlistRandomizable.length}</span> words</span
 			>
 		</div>
-		<div class="py-4 text-9xl text-gray-600 dark:text-gray-300">
+		<div class="py-4 text-6xl text-gray-600 dark:text-gray-300 md:text-8xl xl:text-9xl">
 			<TypeWriter
 				texts={store.wordlistRandomizable}
 				blinksBetweenTexts={0}

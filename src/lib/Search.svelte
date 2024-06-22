@@ -36,11 +36,10 @@
 			<input
 				type="text"
 				value={filterValue}
-				placeholder="Search by # or words"
+				placeholder="filter by word or position"
 				class=" py-20 text-lg md:input-lg placeholder:text-gray-400 dark:placeholder:text-gray-500 md:text-2xl"
 				maxlength="8"
-				class:text-red-300={isError}
-				class:input-error={isError}
+				class:text-red-400={isError}
 				oninput={onchange}
 			/>
 			<X
@@ -53,13 +52,12 @@
 			/>
 		</label>
 	</div>
-	{#if isError}
-		<p class="w-full pt-2 text-center text-sm text-red-400">
-			Invalid input! Enter word positions or valid words only
-		</p>
-	{:else}
+	{#if !isError}
 		<p class="mt-5 text-center text-sm uppercase text-gray-400 dark:text-gray-400">
-			<span class="text-5xl font-bold">{store.wordlistFiltered.length}</span><br /> word found
+			<span class="text-5xl font-bold">{store.wordlistFiltered.length}</span><br /> word{store
+				.wordlistFiltered.length > 1
+				? 's'
+				: ''}
 		</p>
 	{/if}
 </div>

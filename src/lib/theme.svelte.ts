@@ -5,7 +5,7 @@ import { getLocalStorage, setLocalStorage } from './utils';
 
 const ThemeSchema = S.parseJson(S.Literal('dark', 'light'));
 
-export type Theme = S.Schema.Type<typeof ThemeSchema>;
+export type Theme = typeof ThemeSchema.Type;
 
 const KEY_THEME = 'theme';
 
