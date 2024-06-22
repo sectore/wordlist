@@ -20,17 +20,17 @@
 	<div class="flex flex-grow flex-col items-center justify-center">
 		<div class="flex flex-row items-baseline">
 			<h3
-				class="mr-1 text-5xl text-gray-400 transition-opacity duration-150"
+				class="mr-1 text-5xl text-gray-400 transition-opacity duration-150 dark:text-gray-400"
 				class:opacity-0={!noVisible}
 				class:opacity-100={noVisible}
 			>
 				#{no}
 			</h3>
-			<span class="text-sm uppercase text-gray-400"
+			<span class="text-sm uppercase text-gray-400 dark:text-gray-400"
 				>of <span class="font-bold">{store.wordlistRandomizable.length}</span> words</span
 			>
 		</div>
-		<div class="py-4 text-9xl">
+		<div class="py-4 text-9xl text-gray-600 dark:text-gray-300">
 			<TypeWriter
 				texts={store.wordlistRandomizable}
 				blinksBetweenTexts={0}
@@ -46,14 +46,17 @@
 			/>
 		</div>
 		<div class="form-control">
-			<label class="label cursor-pointer">
+			<label class="group label cursor-pointer">
 				<input
 					type="checkbox"
 					checked={store.randomize}
-					class="checkbox checkbox-sm"
+					class="checkbox checkbox-sm border-gray-400 group-hover:border-gray-600 dark:border-gray-400 group-hover:dark:border-gray-200"
 					onchange={(e: Event & { currentTarget: HTMLInputElement }) => store.randomize = e.currentTarget.checked}
 				/>
-				<span class="label-text ml-2 uppercase text-gray-400">Randomize</span>
+				<span
+					class="label-text ml-2 uppercase text-gray-400 group-hover:text-gray-600 dark:text-gray-400 group-hover:dark:text-gray-200"
+					>Randomize</span
+				>
 			</label>
 		</div>
 	</div>

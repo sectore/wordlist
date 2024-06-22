@@ -4,7 +4,7 @@
 	import '../app.css';
 </script>
 
-<div class="container mx-auto flex min-h-screen flex-col text-gray-600">
+<div class="container mx-auto flex min-h-screen flex-col pt-4 text-gray-600">
 	<Header />
 	<slot></slot>
 	<Footer />

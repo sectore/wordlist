@@ -3,8 +3,15 @@
 	import { validIndex, validWord } from './utils';
 	import * as S from 'effect/String';
 	import * as O from 'effect/Option';
+	import { Search, X } from 'lucide-svelte';
+	import { pipe } from 'effect';
 
-	let filterValue = $state('');
+	let filterValue = $derived.by(() =>
+		pipe(
+			store.filter,
+			O.getOrElse(() => '')
+		)
+	);
 	const isError: boolean = $derived.by(
 		() =>
 			!S.isEmpty(filterValue) &&
@@ -14,24 +21,45 @@
 
 	const onchange = (e: Event & { currentTarget: HTMLInputElement }) => {
 		// set filter value
-		filterValue = e.currentTarget.value;
+		const value = e.currentTarget.value;
 		// update store
-		store.filter = S.isEmpty(filterValue) ? O.none() : O.some(filterValue);
+		store.filter = S.isEmpty(value) ? O.none() : O.some(value);
 	};
 </script>
 
-<div class="form-control flex items-center py-20">
-	<input
-		type="text"
-		value={filterValue}
-		placeholder="filter by # or words"
-		class="input input-lg w-1/3 rounded-xl bg-gray-200 text-2xl placeholder:text-gray-400"
-		maxlength="8"
-		class:text-red-300={isError}
-		class:input-error={isError}
-		oninput={onchange}
-	/>
+<div class="flex flex-col py-20">
+	<div class="flex justify-center">
+		<label
+			class="input input-md flex items-center gap-0 border-none bg-gray-200 p-1 text-gray-600 dark:bg-gray-700 dark:text-gray-300 md:p-4"
+		>
+			<Search class="mx-2 h-5 w-5 text-gray-400 md:mx-0 md:h-6 md:w-6" />
+			<input
+				type="text"
+				value={filterValue}
+				placeholder="Search by # or words"
+				class=" py-20 text-lg md:input-lg placeholder:text-gray-400 dark:placeholder:text-gray-500 md:text-2xl"
+				maxlength="8"
+				class:text-red-300={isError}
+				class:input-error={isError}
+				oninput={onchange}
+			/>
+			<X
+				class="mx-2 h-5 w-5 cursor-pointer text-gray-400 md:mx-0 md:h-6 md:w-6 {O.isSome(
+					store.filter
+				)
+					? 'opacity-1'
+					: 'opacity-0'}"
+				onclick={() => (store.filter = O.none())}
+			/>
+		</label>
+	</div>
 	{#if isError}
-		<p class="pt-2 text-sm text-red-400">Invalid input! Enter word positions or valid words only</p>
+		<p class="w-full pt-2 text-center text-sm text-red-400">
+			Invalid input! Enter word positions or valid words only
+		</p>
+	{:else}
+		<p class="mt-5 text-center text-sm uppercase text-gray-400 dark:text-gray-400">
+			<span class="text-5xl font-bold">{store.wordlistFiltered.length}</span><br /> word found
+		</p>
 	{/if}
 </div>
