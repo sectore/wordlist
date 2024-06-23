@@ -8,7 +8,7 @@ https://bip39.bitcoinbeachtravemuende.de
 
 ## Preview
 
-https://github.com/BitcoinBeachTravemuende/bip39-word-list/assets/47693/6d1f97fa-2c65-45e2-b315-be517dcaed89
+https://github.com/BitcoinBeachTravemuende/bip39-word-list/assets/47693/d03fa943-cb90-4064-8b3e-9577f4d0b2e1
 
 ## Develop (locally)
 
