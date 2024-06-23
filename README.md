@@ -1,8 +1,14 @@
 # [BIP-39](https://github.com/bitcoin/bips/blob/master/bip-0039/bip-0039-wordlists.md) word list
 
-LIVE: https://bip39.bitcoinbeachtravemuende.de
-
 Explore [BIP-39](https://github.com/bitcoin/bips/blob/master/bip-0039/bip-0039-wordlists.md) word lists in 10 languages. Filter words or search for word positions.
+
+## Live 
+
+https://bip39.bitcoinbeachtravemuende.de
+
+## Preview
+
+https://github.com/BitcoinBeachTravemuende/bip39-word-list/assets/47693/6d1f97fa-2c65-45e2-b315-be517dcaed89
 
 ## Develop (locally)
 
