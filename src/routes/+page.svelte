@@ -35,7 +35,7 @@
 	<div class="flex flex-grow flex-col items-center justify-center">
 		<div class="flex flex-row items-baseline">
 			<h3
-				class="mr-1 text-5xl text-gray-400 transition-opacity duration-150 dark:text-gray-400"
+				class="mr-1 text-3xl text-gray-400 transition-opacity duration-150 dark:text-gray-400 md:text-5xl"
 				class:opacity-0={!noVisible}
 				class:opacity-100={noVisible}
 			>
