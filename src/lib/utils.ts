@@ -6,6 +6,7 @@ import * as A from 'effect/Array';
 import * as SC from '@effect/schema/Schema';
 import * as KeyValueStore from '@effect/platform/KeyValueStore';
 import { BrowserKeyValueStore } from '@effect/platform-browser';
+import type { WordList, WordListItem } from './types';
 
 export const validPosition: (n: string) => O.Option<number> = flow(
 	N.parse,
@@ -13,12 +14,12 @@ export const validPosition: (n: string) => O.Option<number> = flow(
 	O.filter((n) => n > 0 && n <= 2048)
 );
 
-export const validWord = (s: string, wordlist: string[]): O.Option<string> =>
+export const validWord = (s: string, wordlist: WordList): O.Option<WordListItem> =>
 	pipe(
 		s,
 		S.length,
 		O.liftPredicate((n) => n > 0 && n <= 8),
-		O.flatMap(() => A.findFirst<string>(wordlist, (w) => w.startsWith(s)))
+		O.flatMap(() => A.findFirst(wordlist, ({ word }) => word.startsWith(s)))
 	);
 
 export const getLocalStorage = <A>(key: string, schema: SC.Schema<A, string, never>) => {

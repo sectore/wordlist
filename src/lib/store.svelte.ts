@@ -1,10 +1,9 @@
 import { wordlists } from 'bip39';
-import { pipe, Effect as E } from 'effect';
+import { pipe } from 'effect';
 import * as O from 'effect/Option';
-import { shuffle } from 'effect/Random';
-import { fromIterable } from 'effect/Array';
 import * as A from 'effect/Array';
 import { validPosition } from '$lib/utils';
+import type { WordList } from './types';
 
 export enum PATHS {
 	HOME = '/',
@@ -42,33 +41,26 @@ const WORDLISTS: Record<LANG, string[]> = {
 	es: wordlists['spanish']
 };
 
-type WordListPos = {
-	pos: number;
-	word: string;
-};
-
 class Store {
 	selectedLang = $state<LANG>('en');
 	randomize = $state(false);
-	wordlist = $derived(WORDLISTS[this.selectedLang]);
-	#wordlistPositioned: WordListPos[] = $derived.by(() =>
+	// @private
+	#wordlist: WordList = $derived.by(() =>
 		pipe(
-			this.wordlist,
+			WORDLISTS[this.selectedLang],
 			A.map((word, i) => ({ pos: i + 1, word }))
 		)
 	);
-	wordlistRandomizable = $derived.by(() =>
-		this.randomize
-			? pipe(this.#wordlistPositioned, shuffle, E.map(fromIterable), E.runSync)
-			: this.#wordlistPositioned
-	);
+	// Make wordlist readable only
+	wordlist = $derived(this.#wordlist);
+
 	filter = $state<O.Option<string>>(O.none());
 	wordlistFiltered = $derived.by(() =>
 		pipe(
 			this.filter,
 			O.match({
 				// 1. no filter
-				onNone: () => this.#wordlistPositioned,
+				onNone: () => this.#wordlist,
 				// 2. try to filter by position
 				onSome: (filter) => {
 					const oFilteredByPosition = pipe(
@@ -76,7 +68,7 @@ class Store {
 						O.flatMap((position) =>
 							// Note: Position entered by users in search form starts with 1
 							// That's `index = pos - 1`
-							A.get(position - 1)(this.#wordlistPositioned)
+							A.get(position - 1)(this.#wordlist)
 						),
 						O.map(A.make)
 					);
@@ -84,9 +76,7 @@ class Store {
 					// try to filter words by a given string
 					return pipe(
 						oFilteredByPosition,
-						O.getOrElse(() =>
-							A.filter(this.#wordlistPositioned, ({ word }) => word.startsWith(filter))
-						)
+						O.getOrElse(() => A.filter(this.#wordlist, ({ word }) => word.startsWith(filter)))
 					);
 				}
 			})

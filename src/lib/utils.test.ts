@@ -28,7 +28,13 @@ describe('utils', () => {
 	});
 
 	describe('validaWord', () => {
-		const wordlist = ['apple', 'banana', 'grape', 'orange', 'kiwi'];
+		const wordlist = [
+			{ pos: 1, word: 'apple' },
+			{ pos: 2, word: 'banana' },
+			{ pos: 3, word: 'grape' },
+			{ pos: 4, word: 'orange' },
+			{ pos: 5, word: 'kiwi' }
+		];
 
 		it('should return none for an empty string', () => {
 			expect(validWord('', wordlist)).toEqual(O.none());
@@ -43,7 +49,7 @@ describe('utils', () => {
 		});
 
 		it('should return some for a valid word in the wordlist', () => {
-			expect(validWord('apple', wordlist)).toEqual(O.some('apple'));
+			expect(validWord('apple', wordlist)).toEqual(O.some({ pos: 1, word: 'apple' }));
 		});
 
 		it('should return none for a valid length word not in the wordlist', () => {
@@ -51,8 +57,10 @@ describe('utils', () => {
 		});
 
 		it('should return some for a word exactly 8 characters long if in wordlist', () => {
-			const extendedWordlist = [...wordlist, 'blueblue'];
-			expect(validWord('blueblue', extendedWordlist)).toEqual(O.some('blueblue'));
+			const extendedWordlist = [...wordlist, { pos: 100, word: 'blueblue' }];
+			expect(validWord('blueblue', extendedWordlist)).toEqual(
+				O.some({ pos: 100, word: 'blueblue' })
+			);
 		});
 
 		it('should return none for a word > 8 characters long ', () => {
