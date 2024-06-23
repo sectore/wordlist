@@ -5,8 +5,8 @@ import * as O from 'effect/Option';
 describe('store', () => {
 	describe('filter', () => {
 		it('filters by index', () => {
-			store.filter = O.some('2');
-			expect(store.wordlistFiltered).toEqual(['able']);
+			store.filter = O.some('3');
+			expect(store.wordlistFiltered).toEqual([{ pos: 3, word: 'able' }]);
 		});
 		it('filters [] by unknown index', () => {
 			store.filter = O.some('2121');
@@ -14,13 +14,16 @@ describe('store', () => {
 		});
 		it('filters by word', () => {
 			store.filter = O.some('zoo');
-			expect(store.wordlistFiltered).toEqual(['zoo']);
+			expect(store.wordlistFiltered).toEqual([{ pos: 2048, word: 'zoo' }]);
 		});
 	});
 
 	it('filters by first two chars', () => {
 		store.filter = O.some('zo');
-		expect(store.wordlistFiltered).toEqual(['zone', 'zoo']);
+		expect(store.wordlistFiltered).toEqual([
+			{ pos: 2047, word: 'zone' },
+			{ pos: 2048, word: 'zoo' }
+		]);
 	});
 
 	it('filters [] by unknown chars', () => {
