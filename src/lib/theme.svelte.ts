@@ -6,6 +6,7 @@ import { getLocalStorage, setLocalStorage } from './utils';
 const ThemeSchema = S.parseJson(S.Literal('dark', 'light'));
 
 export type Theme = typeof ThemeSchema.Type;
+export type ThemeEncoded = typeof ThemeSchema.Encoded;
 
 const KEY_THEME = 'theme';
 
@@ -34,12 +35,12 @@ class Store {
 	setTheme = (t: Theme) =>
 		pipe(
 			setLocalStorage(t, KEY_THEME, ThemeSchema),
-			() => this.updateDom(t),
+			Effect.flatMap(() => this.updateDom(t)),
 			Effect.tap(() => (this.#theme = t)),
 			Effect.runSync
 		);
 
-	private checkTheme = () =>
+	checkTheme = () =>
 		pipe(
 			getLocalStorage(KEY_THEME, ThemeSchema),
 			Effect.orElse(() =>
@@ -48,7 +49,8 @@ class Store {
 				)
 			),
 			Effect.tap((t) => (this.#theme = t)),
-			Effect.map(this.updateDom)
+			Effect.flatMap(this.updateDom),
+			Effect.runSync
 		);
 }
 

@@ -66,7 +66,7 @@
 		bip39 word list
 	</h1>
 	<p class="text-xs uppercase">
-		in {lang.length} languages
+		{lang.length} languages
 	</p>
 	<select
 		class="select select-ghost btn-sm select-md bg-gray-200 text-gray-600 md:select-xs dark:bg-gray-600 dark:text-gray-400"
