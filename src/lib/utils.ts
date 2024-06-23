@@ -7,10 +7,10 @@ import * as SC from '@effect/schema/Schema';
 import * as KeyValueStore from '@effect/platform/KeyValueStore';
 import { BrowserKeyValueStore } from '@effect/platform-browser';
 
-export const validIndex: (n: string) => O.Option<number> = flow(
+export const validPosition: (n: string) => O.Option<number> = flow(
 	N.parse,
 	O.filter(N.isNumber),
-	O.filter((n) => n >= 0 && n <= 2048)
+	O.filter((n) => n > 0 && n <= 2048)
 );
 
 export const validWord = (s: string, wordlist: string[]): O.Option<string> =>

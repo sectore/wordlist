@@ -1,6 +1,6 @@
 <script lang="ts">
 	import store from '$lib/store.svelte';
-	import { validIndex, validWord } from './utils';
+	import { validPosition, validWord } from './utils';
 	import * as S from 'effect/String';
 	import * as O from 'effect/Option';
 	import { Search, X } from 'lucide-svelte';
@@ -15,7 +15,7 @@
 	const isError: boolean = $derived.by(
 		() =>
 			!S.isEmpty(filterValue) &&
-			O.isNone(validIndex(filterValue)) &&
+			O.isNone(validPosition(filterValue)) &&
 			O.isNone(validWord(filterValue, store.wordlist))
 	);
 
@@ -27,7 +27,7 @@
 	};
 </script>
 
-<div class="flex flex-col py-20">
+<div class="flex flex-col pb-10 pt-20">
 	<div class="flex justify-center">
 		<label
 			class="input input-md flex items-center gap-0 border-none bg-gray-200 p-1 text-gray-600 dark:bg-gray-700 dark:text-gray-300 md:p-4"
@@ -53,9 +53,9 @@
 		</label>
 	</div>
 	{#if !isError}
-		<p class="mt-5 text-center text-sm uppercase text-gray-400 dark:text-gray-400">
-			<span class="text-5xl font-bold">{store.wordlistFiltered.length}</span><br /> word{store
-				.wordlistFiltered.length > 1
+		<p class="mt-20 text-center text-sm uppercase text-gray-400 dark:text-gray-400">
+			<span class="text-5xl">{store.wordlistFiltered.length}</span> word{store.wordlistFiltered
+				.length > 1
 				? 's'
 				: ''}
 		</p>

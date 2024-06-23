@@ -1,29 +1,29 @@
 import { describe, it, expect } from 'vitest';
-import { validIndex, validWord } from './utils';
+import { validPosition, validWord } from './utils';
 import * as O from 'effect/Option';
 
 describe('utils', () => {
-	describe('validIndex', () => {
+	describe('validPosition', () => {
 		it('should return None for non-numeric string', () => {
-			expect(validIndex('abc')).toEqual(O.none());
+			expect(validPosition('abc')).toEqual(O.none());
 		});
 
-		it('should return None for negative numbers', () => {
-			expect(validIndex('-1')).toEqual(O.none());
+		it('should return None for zero + negative numbers', () => {
+			expect(validPosition('-1')).toEqual(O.none());
+			expect(validPosition('0')).toEqual(O.none());
 		});
 
-		it('should return None for numbers greater than 2048', () => {
-			expect(validIndex('2049')).toEqual(O.none());
+		it('should return None for numbers > 2048', () => {
+			expect(validPosition('2049')).toEqual(O.none());
 		});
 
 		it('should return Some for valid numbers within range', () => {
-			expect(validIndex('0')).toEqual(O.some(0));
-			expect(validIndex('2048')).toEqual(O.some(2048));
-			expect(validIndex('1024')).toEqual(O.some(1024));
+			expect(validPosition('2048')).toEqual(O.some(2048));
+			expect(validPosition('1024')).toEqual(O.some(1024));
 		});
 
 		it('should return None for empty string', () => {
-			expect(validIndex('')).toEqual(O.none());
+			expect(validPosition('')).toEqual(O.none());
 		});
 	});
 
