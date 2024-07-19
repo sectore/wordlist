@@ -7,7 +7,7 @@ import { languages, WordListType } from '../src/lib/types';
 
 const type: WordListType = 'bip39';
 
-const all = pipe(
+pipe(
 	languages,
 	A.map((lang) =>
 		Layer.succeed(
@@ -24,7 +24,6 @@ const all = pipe(
 		)
 	),
 	A.map((configL) => program.pipe(Effect.provide(Layer.merge(NodeFileSystem.layer, configL)))),
-	Effect.all
+	Effect.all,
+  BunRuntime.runMain
 );
-
-all.pipe(BunRuntime.runMain);
