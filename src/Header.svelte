@@ -1,7 +1,8 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import { AlignJustify, LayoutGrid, Moon, Repeat2, Sun } from 'lucide-svelte';
-	import store, { PATHS as P, lang, type LANG } from '$lib/store.svelte';
+	import store, { PATHS as P } from '$lib/store.svelte';
+	import { languages, type LANG } from '$lib/types';
 	import T from '$lib/theme.svelte';
 
 	const isPath = (path: string) => $page.url.pathname === path;
@@ -68,13 +69,14 @@
 <div class="mt-5 flex flex-col items-center justify-center gap-1 text-gray-500 dark:text-gray-400">
 	{@render headline('flex md:hidden pt-10')}
 	<p class="text-xs uppercase">
-		{lang.length} languages
+		{languages.length} languages
 	</p>
 	<select
 		class="select select-ghost btn-sm select-xs bg-gray-200 text-gray-600 dark:bg-gray-600 dark:text-gray-400"
-		onchange={(e: Event & { currentTarget: HTMLSelectElement }) => store.selectedLang = e.currentTarget.value as LANG}
+		onchange={(e: Event & { currentTarget: HTMLSelectElement }) =>
+			(store.selectedLang = e.currentTarget.value as LANG)}
 	>
-		{#each lang as l (l)}
+		{#each languages as l (l)}
 			<option class="text-gray-600 dark:text-gray-400" selected={store.selectedLang === l} value={l}
 				>{l.toUpperCase()}</option
 			>

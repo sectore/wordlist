@@ -1,9 +1,18 @@
-import { wordlists } from 'bip39';
 import { pipe } from 'effect';
 import * as O from 'effect/Option';
 import * as A from 'effect/Array';
 import { validPosition } from '$lib/utils';
-import type { WordList } from './types';
+import type { LANG, WordList } from './types';
+import bip39en from './wordlists/bip39-en';
+import bip39cz from './wordlists/bip39-cz';
+import bip39zhHans from './wordlists/bip39-zh-Hans';
+import bip39zhHant from './wordlists/bip39-zh-Hant';
+import bip39fr from './wordlists/bip39-fr';
+import bip39it from './wordlists/bip39-it';
+import bip39jp from './wordlists/bip39-jp';
+import bip39kr from './wordlists/bip39-kr';
+import bip39pt from './wordlists/bip39-pt';
+import bip39es from './wordlists/bip39-es';
 
 export enum PATHS {
 	HOME = '/',
@@ -11,46 +20,26 @@ export enum PATHS {
 	GRID = '/grid'
 }
 
-export const lang = [
-	'en',
-	'fr',
-	'cz',
-	'it',
-	'jp',
-	'kr',
-	'pt',
-	'es',
-	'zh-Hans' /* zh simplified */,
-	'zh-Hant' /* zh traditional */
-] as const;
-
-export type LANG = (typeof lang)[number];
-
 // bip30 wordlists
 // https://github.com/bitcoinjs/bip39/tree/master/src/wordlists
-const WORDLISTS: Record<LANG, string[]> = {
-	en: wordlists['english'],
-	cz: wordlists['czech'],
-	'zh-Hans': wordlists['chinese_simplified'],
-	'zh-Hant': wordlists['chinese_traditional'],
-	fr: wordlists['french'],
-	it: wordlists['italian'],
-	jp: wordlists['japanese'],
-	kr: wordlists['korean'],
-	pt: wordlists['portuguese'],
-	es: wordlists['spanish']
+const WORDLISTS: Record<LANG, WordList> = {
+	en: bip39en,
+	cz: bip39cz,
+	'zh-Hans': bip39zhHans,
+	'zh-Hant': bip39zhHant,
+	fr: bip39fr,
+	it: bip39it,
+	jp: bip39jp,
+	kr: bip39kr,
+	pt: bip39pt,
+	es: bip39es
 };
 
 class Store {
 	selectedLang = $state<LANG>('en');
 	randomize = $state(false);
 	// @private
-	#wordlist: WordList = $derived.by(() =>
-		pipe(
-			WORDLISTS[this.selectedLang],
-			A.map((word, i) => ({ pos: i + 1, word }))
-		)
-	);
+	#wordlist: WordList = $derived.by(() => WORDLISTS[this.selectedLang]);
 	// Make wordlist readable only
 	wordlist = $derived(this.#wordlist);
 
