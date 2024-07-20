@@ -37,17 +37,16 @@ const parseWordlist = ({
 		A.map(S.trim),
 		A.filter(S.isNonEmpty),
 		(wordlist) => `
-  import { type WordList } from '../types'
-  
   /**
-   * Generated ${type} word list (${lang.toUpperCase()})
+   * ${type} word list (${lang.toUpperCase()})
+   * 
    * @source ${url.toString()}
    * 
    * Don't edit!
    */
-  const wordlist:WordList = [${pipe(
+  const wordlist:string[] = [${pipe(
 		wordlist,
-		A.map((s, i) => `{ pos: ${i + 1}, word: '${s}' }`),
+		A.map((s) => `'${s}'`),
 		A.join(',')
 	)}]
 
@@ -81,7 +80,11 @@ const writeWordlist = (wordlist: string, path: string) =>
 export const program = E.gen(function* (_) {
 	const config = yield* _(Config);
 	const { type, pathToSave, github_raw, github_url, lang } = yield* config.get;
-	yield* _(E.log(`Fetching word list from ${github_raw.toString()}`));
+	yield* _(
+		E.log(
+			`\n~~~~~~~(${type.toUpperCase()}/${lang.toUpperCase()})~~~~~~~\nFetching word list from ${github_raw.toString()}`
+		)
+	);
 	const result = yield* _(fetchWordlist(github_raw));
 	const wordlist = parseWordlist({ result, type, url: github_url, lang });
 	const formatted = yield* _(formatWordlist(wordlist, pathToSave));

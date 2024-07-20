@@ -22,7 +22,7 @@ export enum PATHS {
 
 // bip30 wordlists
 // https://github.com/bitcoinjs/bip39/tree/master/src/wordlists
-const WORDLISTS: Record<LANG, WordList> = {
+const WORDLISTS: Record<LANG, string[]> = {
 	en: bip39en,
 	cz: bip39cz,
 	'zh-Hans': bip39zhHans,
@@ -39,7 +39,12 @@ class Store {
 	selectedLang = $state<LANG>('en');
 	randomize = $state(false);
 	// @private
-	#wordlist: WordList = $derived.by(() => WORDLISTS[this.selectedLang]);
+	#wordlist: WordList = $derived.by(() =>
+		pipe(
+			WORDLISTS[this.selectedLang],
+			A.map((word, i) => ({ pos: i + 1, word }))
+		)
+	);
 	// Make wordlist readable only
 	wordlist = $derived(this.#wordlist);
 

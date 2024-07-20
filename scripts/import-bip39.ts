@@ -16,8 +16,8 @@ pipe(
 				get: Effect.succeed({
 					type,
 					lang,
-          github_raw: new URL(RAW_GITHUB_URLS[type][lang]),
-          github_url: new URL(GITHUB_URLS[type][lang]),
+					github_raw: new URL(RAW_GITHUB_URLS[type][lang]),
+					github_url: new URL(GITHUB_URLS[type][lang]),
 					pathToSave: `./src/lib/wordlists/bip39-${lang}.ts`
 				})
 			})
@@ -25,5 +25,5 @@ pipe(
 	),
 	A.map((configL) => program.pipe(Effect.provide(Layer.merge(NodeFileSystem.layer, configL)))),
 	Effect.all,
-  BunRuntime.runMain
+	BunRuntime.runMain
 );
