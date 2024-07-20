@@ -1,8 +1,8 @@
-# [BIP-39](https://github.com/bitcoin/bips/blob/master/bip-0039/bip-0039-wordlists.md) word list
+# [BIP-39](https://github.com/bitcoin/bips/blob/master/bip-0039/bip-0039-wordlists.md) | [SLIP-39](https://github.com/satoshilabs/slips/blob/master/slip-0039.md) word lists
 
-Explore [BIP-39](https://github.com/bitcoin/bips/blob/master/bip-0039/bip-0039-wordlists.md) word lists in 10 languages. Filter words or search for word positions.
+Explore [BIP-39](https://github.com/bitcoin/bips/blob/master/bip-0039/bip-0039-wordlists.md) word lists in 10 languages or [SLIP-39](https://github.com/satoshilabs/slips/blob/master/slip-0039.md) in English. Filter words or search for word positions.
 
-## Live 
+## Live
 
 https://bip39.bitcoinbeachtravemuende.de
 
@@ -30,6 +30,17 @@ bun run preview --open
 
 ```bash
 bun run tests
+```
+
+## Import wordlists
+
+Word lists have been imported from original sources of [`BIP-39`](https://github.com/bitcoin/bips/blob/master/bip-0039/bip-0039-wordlists.md) and [`SLIP-39`](https://github.com/satoshilabs/slips/blob/master/slip-0039.md) located at GitHub.
+
+Run following script to re-import those word lists.
+
+```bash
+bun run import:bip39
+bun run import:slip39
 ```
 
 ## Built with

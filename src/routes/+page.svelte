@@ -52,9 +52,9 @@
 				typeSpeed={30}
 				deleteSpeed={30}
 				ontypestart={(i: number) => {
-        noVisible = true
-        currentWord = wordlistTypeable[i];
-      }}
+					noVisible = true;
+					currentWord = wordlistTypeable[i];
+				}}
 				ondeleteend={() => {
 					noVisible = false;
 				}}
@@ -66,7 +66,8 @@
 					type="checkbox"
 					checked={store.randomize}
 					class="checkbox checkbox-sm border-gray-400 group-hover:border-gray-600 dark:border-gray-400 group-hover:dark:border-gray-200"
-					onchange={(e: Event & { currentTarget: HTMLInputElement }) => store.randomize = e.currentTarget.checked}
+					onchange={(e: Event & { currentTarget: HTMLInputElement }) =>
+						(store.randomize = e.currentTarget.checked)}
 				/>
 				<span
 					class="label-text ml-2 uppercase text-gray-400 group-hover:text-gray-600 dark:text-gray-400 group-hover:dark:text-gray-200"
