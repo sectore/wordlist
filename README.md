@@ -34,13 +34,13 @@ bun run tests
 
 ## Import wordlists
 
-Word lists have been imported from original sources of [`BIP-39`](https://github.com/bitcoin/bips/blob/master/bip-0039/bip-0039-wordlists.md) and [`SLIP-39`](https://github.com/satoshilabs/slips/blob/master/slip-0039.md) locatd at GitHub.
+Word lists have been imported from original sources of [`BIP-39`](https://github.com/bitcoin/bips/blob/master/bip-0039/bip-0039-wordlists.md) and [`SLIP-39`](https://github.com/satoshilabs/slips/blob/master/slip-0039.md) located at GitHub.
 
 Run following script to re-import those word lists.
 
 ```bash
-bun run import-bip39
-bun run import-slip39
+bun run import:bip39
+bun run import:slip39
 ```
 
 ## Built with
