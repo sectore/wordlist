@@ -2,7 +2,7 @@
 
 Explore [BIP-39](https://github.com/bitcoin/bips/blob/master/bip-0039/bip-0039-wordlists.md) word lists in 10 languages or [SLIP-39](https://github.com/satoshilabs/slips/blob/master/slip-0039.md) in English. Filter words or search for word positions.
 
-## Live 
+## Live
 
 https://bip39.bitcoinbeachtravemuende.de
 
