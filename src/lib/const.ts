@@ -1,5 +1,11 @@
 import type { LANG, WordListType } from './types';
 
+export enum SUB_PATH {
+	HOME = '/',
+	LIST = '/list',
+	GRID = '/grid'
+}
+
 const bip39Url = (file: string) => `https://github.com/bitcoin/bips/blob/master/bip-0039/${file}`;
 
 type WordListUrls = Record<LANG, string>;

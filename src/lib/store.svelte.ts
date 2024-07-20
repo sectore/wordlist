@@ -1,8 +1,9 @@
-import { pipe } from 'effect';
+import { Effect, pipe } from 'effect';
 import * as O from 'effect/Option';
 import * as A from 'effect/Array';
-import { validPosition } from '$lib/utils';
-import type { LANG, WordList } from './types';
+
+import { getLocalStorage, setLocalStorage, validPosition } from '$lib/utils';
+import { WordListTypeSchema, type LANG, type WordList, type WordListType } from './types';
 import bip39en from './wordlists/bip39-en';
 import bip39cz from './wordlists/bip39-cz';
 import bip39zhHans from './wordlists/bip39-zh-Hans';
@@ -13,39 +14,77 @@ import bip39jp from './wordlists/bip39-jp';
 import bip39kr from './wordlists/bip39-kr';
 import bip39pt from './wordlists/bip39-pt';
 import bip39es from './wordlists/bip39-es';
+import slip39es from './wordlists/slip39-en';
 
-export enum PATHS {
-	HOME = '/',
-	LIST = '/list',
-	GRID = '/grid'
-}
-
-// bip30 wordlists
-// https://github.com/bitcoinjs/bip39/tree/master/src/wordlists
-const WORDLISTS: Record<LANG, string[]> = {
-	en: bip39en,
-	cz: bip39cz,
-	'zh-Hans': bip39zhHans,
-	'zh-Hant': bip39zhHant,
-	fr: bip39fr,
-	it: bip39it,
-	jp: bip39jp,
-	kr: bip39kr,
-	pt: bip39pt,
-	es: bip39es
+const WORD_LIST_MAP: Record<WordListType, Record<LANG, string[]>> = {
+	// https://github.com/bitcoinjs/bip39/tree/master/src/wordlists
+	bip39: {
+		en: bip39en,
+		cz: bip39cz,
+		'zh-Hans': bip39zhHans,
+		'zh-Hant': bip39zhHant,
+		fr: bip39fr,
+		it: bip39it,
+		jp: bip39jp,
+		kr: bip39kr,
+		pt: bip39pt,
+		es: bip39es
+	},
+	slip39: {
+		en: slip39es,
+		cz: [''],
+		'zh-Hans': [''],
+		'zh-Hant': [''],
+		fr: [''],
+		it: [''],
+		jp: [''],
+		kr: [''],
+		pt: [''],
+		es: ['']
+	}
 };
+
+const KEY_WORD_LIST_TYPE = 'type';
+const DEFAULT_WORD_LIST_TYPE: WordListType = 'bip39';
 
 class Store {
 	selectedLang = $state<LANG>('en');
+
+	// @private
+	#wordlistType = $state<WordListType>(DEFAULT_WORD_LIST_TYPE);
+
+	constructor() {
+		// check stored `WordlistType` at start
+		this.checkWordlistType();
+	}
+
+	// getter
+	wordlistType = $derived(this.#wordlistType);
+
+	setWordlistType = (t: WordListType) =>
+		pipe(
+			setLocalStorage(t, KEY_WORD_LIST_TYPE, WordListTypeSchema),
+			Effect.tap(() => (this.#wordlistType = t)),
+			Effect.runSync
+		);
+
+	checkWordlistType = () =>
+		pipe(
+			getLocalStorage(KEY_WORD_LIST_TYPE, WordListTypeSchema),
+			Effect.orElse(() => Effect.succeed(DEFAULT_WORD_LIST_TYPE)),
+			Effect.tap((t) => (this.#wordlistType = t)),
+			Effect.runSync
+		);
+
 	randomize = $state(false);
 	// @private
 	#wordlist: WordList = $derived.by(() =>
 		pipe(
-			WORDLISTS[this.selectedLang],
+			WORD_LIST_MAP[this.#wordlistType][this.selectedLang],
 			A.map((word, i) => ({ pos: i + 1, word }))
 		)
 	);
-	// Make wordlist readable only
+	// getter
 	wordlist = $derived(this.#wordlist);
 
 	filter = $state<O.Option<string>>(O.none());

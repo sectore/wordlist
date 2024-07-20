@@ -1,6 +1,6 @@
-# [BIP-39](https://github.com/bitcoin/bips/blob/master/bip-0039/bip-0039-wordlists.md) | [SLIP-39](https://github.com/satoshilabs/slips/blob/master/slip-0039.md) word lists
+# [BIP-39](https://github.com/bitcoin/bips/blob/master/bip-0039/bip-0039-wordlists.md) | [SLIP-39](https://github.com/satoshilabs/slips/blob/master/slip-0039.md) word list
 
-Explore [BIP-39](https://github.com/bitcoin/bips/blob/master/bip-0039/bip-0039-wordlists.md) word lists in 10 languages or [SLIP-39](https://github.com/satoshilabs/slips/blob/master/slip-0039.md) in English. Filter words or search for word positions.
+Explore [BIP-39](https://github.com/bitcoin/bips/blob/master/bip-0039/bip-0039-wordlists.md) and [SLIP-39](https://github.com/satoshilabs/slips/blob/master/slip-0039.md) word lists in up to 10 languages. Filter words or search for word positions.
 
 ## Live
 
@@ -49,7 +49,6 @@ bun run import:slip39
 - [Svelte](https://svelte.dev/)
 - [daisyUI](https://daisyui.com/)
 - [Effect](https://effect.website/)
-- [bitcoinjs/bip39](https://github.com/bitcoinjs/bip39)
 - [svelte-typewriter](https://github.com/satohshi/svelte-typewriter)
 - [lucide-svelte](https://lucide.dev/)
 
