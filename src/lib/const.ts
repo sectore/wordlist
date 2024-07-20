@@ -18,7 +18,7 @@ export const GITHUB_URLS: Record<WordListType, WordListUrls> = {
 		pt: bip39Url('portuguese.txt')
 	},
 	slip39: {
-		en: new URL('https://github.com/satoshilabs/slips/blob/master/slip-0039/wordlist.txt'),
+		en: 'https://github.com/satoshilabs/slips/blob/master/slip-0039/wordlist.txt',
 		cz: '',
 		es: '',
 		fr: '',
