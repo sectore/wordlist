@@ -6,7 +6,7 @@
 	<aside class="flex flex-col items-center gap-2 text-xs">
 		<p>
 			Open Source at <a
-				href="https://github.com/BitcoinBeachTravemuende/bip39-word-list"
+				href="https://github.com/BitcoinBeachTravemuende/word-list"
 				class="ml-1 inline-block underline hover:text-gray-600 dark:hover:text-gray-200"
 			>
 				Github</a
