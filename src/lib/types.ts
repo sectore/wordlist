@@ -15,6 +15,9 @@ export const languages = [
 
 export type LANG = (typeof languages)[number];
 
+// Schema for routes (`string`)
+export const WordListTypeLiteralSchema = S.Literal('bip39', 'slip39');
+// Schema for LocalStorage (JSON)
 export const WordListTypeSchema = S.parseJson(S.Literal('bip39', 'slip39'));
 
 export type WordListType = typeof WordListTypeSchema.Type;

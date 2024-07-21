@@ -1,6 +1,7 @@
 import { Effect, pipe } from 'effect';
 import * as O from 'effect/Option';
 import * as A from 'effect/Array';
+import * as R from 'effect/Record';
 
 import { getLocalStorage, setLocalStorage, validPosition } from '$lib/utils';
 import { WordListTypeSchema, type LANG, type WordList, type WordListType } from './types';
@@ -16,31 +17,31 @@ import bip39pt from './wordlists/bip39-pt';
 import bip39es from './wordlists/bip39-es';
 import slip39es from './wordlists/slip39-en';
 
-const WORD_LIST_MAP: Record<WordListType, Record<LANG, string[]>> = {
+const WORD_LIST_MAP: Record<WordListType, Record<LANG, O.Option<string[]>>> = {
 	// https://github.com/bitcoinjs/bip39/tree/master/src/wordlists
 	bip39: {
-		en: bip39en,
-		cz: bip39cz,
-		'zh-Hans': bip39zhHans,
-		'zh-Hant': bip39zhHant,
-		fr: bip39fr,
-		it: bip39it,
-		jp: bip39jp,
-		kr: bip39kr,
-		pt: bip39pt,
-		es: bip39es
+		en: O.some(bip39en),
+		cz: O.some(bip39cz),
+		'zh-Hans': O.some(bip39zhHans),
+		'zh-Hant': O.some(bip39zhHant),
+		fr: O.some(bip39fr),
+		it: O.some(bip39it),
+		jp: O.some(bip39jp),
+		kr: O.some(bip39kr),
+		pt: O.some(bip39pt),
+		es: O.some(bip39es)
 	},
 	slip39: {
-		en: slip39es,
-		cz: [''],
-		'zh-Hans': [''],
-		'zh-Hant': [''],
-		fr: [''],
-		it: [''],
-		jp: [''],
-		kr: [''],
-		pt: [''],
-		es: ['']
+		en: O.some(slip39es),
+		cz: O.none(),
+		'zh-Hans': O.none(),
+		'zh-Hant': O.none(),
+		fr: O.none(),
+		it: O.none(),
+		jp: O.none(),
+		kr: O.none(),
+		pt: O.none(),
+		es: O.none()
 	}
 };
 
@@ -81,11 +82,23 @@ class Store {
 	#wordlist: WordList = $derived.by(() =>
 		pipe(
 			WORD_LIST_MAP[this.#wordlistType][this.selectedLang],
-			A.map((word, i) => ({ pos: i + 1, word }))
+			// transform `string` -> `WordListItem`
+			O.map(A.map((word, i) => ({ pos: i + 1, word }))),
+			O.getOrElse(() => [])
 		)
 	);
 	// getter
 	wordlist = $derived(this.#wordlist);
+
+	languages = $derived.by(() =>
+		pipe(
+			WORD_LIST_MAP[this.#wordlistType],
+			// filter out `none` values
+			R.getSomes,
+			// get languages (keys)
+			R.keys
+		)
+	);
 
 	filter = $state<O.Option<string>>(O.none());
 	wordlistFiltered = $derived.by(() =>

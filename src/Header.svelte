@@ -3,7 +3,7 @@
 	import { AlignJustify, LayoutGrid, Moon, Repeat2, Sun } from 'lucide-svelte';
 	import { SUB_PATH } from '$lib/const';
 	import store from '$lib/store.svelte';
-	import { languages, type LANG } from '$lib/types';
+	import { type LANG } from '$lib/types';
 	import { getFullPath } from '$lib/utils';
 	import T from '$lib/theme.svelte';
 
@@ -12,7 +12,10 @@
 	const isBip39 = $derived(store.wordlistType === 'bip39');
 	const isSlip39 = $derived(store.wordlistType === 'slip39');
 
-	const langs = $derived.by(() => (isSlip39 ? ['en'] : languages));
+	const langLabel = $derived.by(() => {
+		const l = store.languages.length;
+		return `${l} language${l > 1 ? 's' : ''}`;
+	});
 </script>
 
 <header class="flex w-full items-center justify-center md:flex-row md:justify-normal">
@@ -87,19 +90,16 @@
 		>
 	</h1>
 	<p class="text-xs uppercase">
-		{langs.length} language{langs.length > 1 ? 's' : ''}
+		{langLabel}
 	</p>
 	<select
 		class="select select-ghost btn-sm select-xs bg-gray-200 text-gray-600 dark:bg-gray-600 dark:text-gray-400"
 		onchange={(e: Event & { currentTarget: HTMLSelectElement }) =>
 			(store.selectedLang = e.currentTarget.value as LANG)}
 	>
-		{#each langs as l (l)}
-			<option
-				class="text-gray-600 dark:text-gray-400"
-				disabled={langs.length <= 1}
-				selected={store.selectedLang === l}
-				value={l}>{l.toUpperCase()}</option
+		{#each store.languages as l (l)}
+			<option class="text-gray-600 dark:text-gray-400" selected={store.selectedLang === l} value={l}
+				>{l.toUpperCase()}</option
 			>
 		{/each}
 	</select>
