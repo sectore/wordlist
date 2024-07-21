@@ -1,5 +1,5 @@
 {
-  description = "bip39 word list";
+  description = "word list";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";

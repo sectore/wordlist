@@ -1,10 +1,10 @@
 # [BIP-39](https://github.com/bitcoin/bips/blob/master/bip-0039/bip-0039-wordlists.md) | [SLIP-39](https://github.com/satoshilabs/slips/blob/master/slip-0039.md) word list
 
-Explore [BIP-39](https://github.com/bitcoin/bips/blob/master/bip-0039/bip-0039-wordlists.md) and [SLIP-39](https://github.com/satoshilabs/slips/blob/master/slip-0039.md) word lists in up to 10 languages. Filter words or search for word positions.
+Explore [BIP-39](https://github.com/bitcoin/bips/blob/master/bip-0039/bip-0039-wordlists.md) and [SLIP-39](https://github.com/satoshilabs/slips/blob/master/slip-0039.md) word list in up to 10 languages. Filter words or search for word positions.
 
 ## Live
 
-https://bip39.bitcoinbeachtravemuende.de
+https://wordlist.bitcoinbeachtravemuende.de
 
 ## Preview
 

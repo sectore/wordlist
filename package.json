@@ -1,5 +1,5 @@
 {
-	"name": "bip39-slip39-wordlist",
+	"name": "wordlist",
 	"version": "0.0.1",
 	"devDependencies": {
 		"@effect/platform": "^0.59.2",
