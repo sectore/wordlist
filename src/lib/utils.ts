@@ -6,7 +6,8 @@ import * as A from 'effect/Array';
 import * as SC from '@effect/schema/Schema';
 import * as KeyValueStore from '@effect/platform/KeyValueStore';
 import { BrowserKeyValueStore } from '@effect/platform-browser';
-import type { WordList, WordListItem } from './types';
+import type { WordList, WordListItem, WordListType } from './types';
+import type { SUB_PATH } from './const';
 
 export const validPosition: (n: string) => O.Option<number> = flow(
 	N.parse,
@@ -46,3 +47,5 @@ export const setLocalStorage = <A>(value: A, key: string, schema: SC.Schema<A, s
 	);
 	return Effect.provide(effect, BrowserKeyValueStore.layerLocalStorage);
 };
+
+export const getFullPath = (type: WordListType, subPath: SUB_PATH) => `/${type}${subPath}`;
