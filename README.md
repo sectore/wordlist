@@ -8,7 +8,7 @@ https://wordlist.bitcoinbeachtravemuende.de
 
 ## Preview
 
-https://github.com/BitcoinBeachTravemuende/wordlist/assets/47693/d03fa943-cb90-4064-8b3e-9577f4d0b2e1
+https://github.com/user-attachments/assets/9b394691-a757-4fa8-a805-84cbfe523067
 
 ## Develop (locally)
 
