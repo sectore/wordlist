@@ -20,28 +20,28 @@ import slip39es from './wordlists/slip39-en';
 const WORD_LIST_MAP: Record<WordListType, Record<LANG, O.Option<string[]>>> = {
 	// https://github.com/bitcoinjs/bip39/tree/master/src/wordlists
 	bip39: {
-		en: O.some(bip39en),
 		cz: O.some(bip39cz),
-		'zh-Hans': O.some(bip39zhHans),
-		'zh-Hant': O.some(bip39zhHant),
+		en: O.some(bip39en),
+		es: O.some(bip39es),
 		fr: O.some(bip39fr),
 		it: O.some(bip39it),
 		jp: O.some(bip39jp),
 		kr: O.some(bip39kr),
 		pt: O.some(bip39pt),
-		es: O.some(bip39es)
+		'zh-Hans': O.some(bip39zhHans),
+		'zh-Hant': O.some(bip39zhHant)
 	},
 	slip39: {
-		en: O.some(slip39es),
 		cz: O.none(),
-		'zh-Hans': O.none(),
-		'zh-Hant': O.none(),
+		en: O.some(slip39es),
+		es: O.none(),
 		fr: O.none(),
 		it: O.none(),
 		jp: O.none(),
 		kr: O.none(),
 		pt: O.none(),
-		es: O.none()
+		'zh-Hans': O.none(),
+		'zh-Hant': O.none()
 	}
 };
 
