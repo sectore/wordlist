@@ -5,6 +5,6 @@
 	// To continue with `WordListType` an user used before
 	// re-direct to it
 	$effect(() => {
-		goto(`/${store.wordlistType}`);
+		goto(`/wordlist/${store.wordlistType}`);
 	});
 </script>

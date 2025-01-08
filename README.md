@@ -4,11 +4,11 @@ Explore [BIP-39](https://github.com/bitcoin/bips/blob/master/bip-0039/bip-0039-w
 
 ## Live
 
-https://wordlist.bitcoinbeachtravemuende.de
+https://sectore.github.io/fees/wordlist
 
 ## Preview
 
-https://github.com/user-attachments/assets/9b394691-a757-4fa8-a805-84cbfe523067
+// TODO: upload video
 
 ## Develop (locally)
 

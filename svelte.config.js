@@ -12,7 +12,12 @@ const config = {
 	kit: {
 		adapter: adapter({
 			fallback: '404.html'
-		})
+		}),
+		// base path - needed for GH pages
+		// https://svelte.dev/docs/kit/configuration#paths
+		paths: {
+			base: '/wordlist'
+		}
 	}
 };
 

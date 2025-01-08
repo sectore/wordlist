@@ -48,4 +48,4 @@ export const setLocalStorage = <A>(value: A, key: string, schema: SC.Schema<A, s
 	return Effect.provide(effect, BrowserKeyValueStore.layerLocalStorage);
 };
 
-export const getFullPath = (type: WordListType, subPath: SUB_PATH) => `/${type}${subPath}`;
+export const getFullPath = (type: WordListType, subPath: SUB_PATH) => `/wordlist/${type}${subPath}`;
