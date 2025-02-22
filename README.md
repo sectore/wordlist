@@ -29,7 +29,7 @@ bun run preview --open
 ## Tests
 
 ```bash
-bun run tests
+bun run test
 ```
 
 ## Import wordlists
