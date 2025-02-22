@@ -1,6 +1,6 @@
 import { Effect as E, pipe, String as S, Array as A, Context } from 'effect';
 import { FetchHttpClient, FileSystem } from '@effect/platform';
-import { HttpClientRequest, HttpClient, HttpClientResponse } from '@effect/platform';
+import { HttpClient } from '@effect/platform';
 import prettier from 'prettier';
 import { LANG, WordListType } from '../src/lib/types';
 
