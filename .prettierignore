@@ -2,5 +2,6 @@
 package-lock.json
 pnpm-lock.yaml
 yarn.lock
+flake.lock
 # ignore generated word list
 src/store/wordlist.ts

@@ -1,7 +1,3 @@
-<script lang="ts">
-	import { Heart } from 'lucide-svelte';
-</script>
-
 <footer class="mt-20 w-full items-center p-4 text-gray-400 dark:text-gray-400">
 	<aside class="flex flex-col items-center gap-2 text-xs uppercase">
 		<p>

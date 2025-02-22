@@ -1,4 +1,4 @@
-import * as S from '@effect/schema/Schema';
+import * as S from 'effect/Schema';
 import { pipe } from 'effect';
 import * as Effect from 'effect/Effect';
 import { getLocalStorage, setLocalStorage } from './utils';

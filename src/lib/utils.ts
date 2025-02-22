@@ -3,7 +3,7 @@ import * as O from 'effect/Option';
 import * as N from 'effect/Number';
 import * as S from 'effect/String';
 import * as A from 'effect/Array';
-import * as SC from '@effect/schema/Schema';
+import * as SC from 'effect/Schema';
 import * as KeyValueStore from '@effect/platform/KeyValueStore';
 import { BrowserKeyValueStore } from '@effect/platform-browser';
 import type { WordList, WordListItem, WordListType } from './types';

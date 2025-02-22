@@ -5,7 +5,7 @@
 	import Header from '../Header.svelte';
 	import store from '$lib/store.svelte';
 	import '../app.css';
-	import * as SC from '@effect/schema/Schema';
+	import * as SC from 'effect/Schema';
 
 	let { children } = $props();
 
