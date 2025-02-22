@@ -8,6 +8,7 @@
 	import T from '$lib/theme.svelte';
 
 	const isSubPath = (subPath: SUB_PATH) => $page.url.pathname.endsWith(subPath);
+	const isHome = $derived(!isSubPath(SUB_PATH.GRID) && !isSubPath(SUB_PATH.LIST));
 
 	const isBip39 = $derived(store.wordlistType === 'bip39');
 	const isSlip39 = $derived(store.wordlistType === 'slip39');
@@ -22,14 +23,12 @@
 	<div class="flex w-full gap-2 text-gray-600 dark:text-gray-300">
 		<a
 			href={getFullPath(store.wordlistType, SUB_PATH.HOME)}
-			class="rounded-md p-2 hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-50 {isSubPath(
-				SUB_PATH.HOME
-			)
+			class="rounded-md p-2 hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-50 {isHome
 				? 'cursor-default !bg-gray-200 text-gray-900 dark:!bg-gray-600 dark:text-gray-100'
 				: ''}"
 			title="typewriter"
 		>
-			<Repeat2 strokeWidth={isSubPath(SUB_PATH.HOME) ? 1.2 : 1} />
+			<Repeat2 strokeWidth={isHome ? 1.2 : 1} />
 		</a>
 		<a
 			href={getFullPath(store.wordlistType, SUB_PATH.GRID)}
